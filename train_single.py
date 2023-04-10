@@ -129,7 +129,7 @@ def main():
     if torch.cuda.device_count() > 1:
         print("Let's use", torch.cuda.device_count(), "GPUs!")
         model = DataParallel(model, device_ids=[int(i) for i in args.device.split(',')])
-        model.to(device)
+        model = model.to(device)
         multi_gpu = True
     print('starting training')
     running_loss = 0
@@ -173,6 +173,10 @@ def main():
                 batch_labels = torch.tensor(batch_labels).long().to(device)
                 batch_inputs = torch.tensor(batch_inputs).long().to(device)
 
+                model = model.to(device)
+                batch_inputs = batch_inputs.to(device)
+                batch_labels = batch_labels.to(device)
+                
                 #  forward pass
                 outputs = model.forward(input_ids=batch_inputs, labels=batch_labels)
                 loss, logits = outputs[:2]
