@@ -103,7 +103,6 @@ def main():
     if not args.pretrained_model:
         model = transformers.modeling_gpt2.GPT2LMHeadModel(config=model_config)
     else:
-        # model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
         model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
     model.train()
     model.to(device)
@@ -142,6 +141,7 @@ def main():
         for i in x:
             with open(tokenized_data_path + 'tokenized_train_{}.txt'.format(i), 'r') as f:
                 line = f.read().strip()
+                print('line')
             tokens = line.split()
             tokens = [int(token) for token in tokens]
             start_point = 0
