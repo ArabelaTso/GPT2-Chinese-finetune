@@ -1,5 +1,5 @@
 import transformers
-from transformers import AutoModel
+from transformers.models.gpt2 import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
 import torch
 import os
 import json
@@ -105,7 +105,7 @@ def main():
         model = transformers.modeling_gpt2.GPT2LMHeadModel(config=model_config)
     else:
         # model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
-        model = AutoModel.from_pretrained("directory")
+        model = GPT2LMHeadModel.from_pretrained(args.pretrained_model)
     model.train()
     model.to(device)
     multi_gpu = False
