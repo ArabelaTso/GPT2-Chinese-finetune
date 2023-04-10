@@ -147,7 +147,6 @@ def main():
                 line = f.read().strip()
             tokens = line.split()
             tokens = [int(token) for token in tokens]
-            print('tokens = ', tokens)
             
             start_point = 0
             samples = []
@@ -157,12 +156,9 @@ def main():
             if start_point < len(tokens):
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
-            print('>>>', len(samples))
-            
             assert len(samples) >= batch_size
-            
             for step in range(len(samples) // batch_size):
-                print('>>> Enter step')
+                # print('>>> Enter step')
                 #  prepare data
                 batch = samples[step * batch_size: (step + 1) * batch_size]
                 batch_labels = []
@@ -204,7 +200,6 @@ def main():
                     optimizer.step()
                     optimizer.zero_grad()
                     scheduler.step()
-                print(f'\n>>> (step + 1) \% log\_step  = ({step + 1})\% {log_step}')
                 if (step + 1) % log_step == 0:
                     print('now time: {}:{}. Step {} of piece {} of epoch {}, loss {}'.format(
                         datetime.now().hour,
