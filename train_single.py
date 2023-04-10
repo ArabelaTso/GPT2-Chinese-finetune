@@ -72,7 +72,8 @@ def main():
     model_config = transformers.modeling_gpt2.GPT2Config.from_json_file(args.model_config)
     print('config:\n' + model_config.to_json_string())
 
-    n_ctx = model_config.n_ctx
+    # n_ctx = model_config.n_ctx
+    n_ctx = 8
     full_tokenizer = tokenization_bert.BertTokenizer(vocab_file=args.tokenizer_path)
     full_tokenizer.max_len = 999999
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -144,6 +145,8 @@ def main():
                 line = f.read().strip()
             tokens = line.split()
             tokens = [int(token) for token in tokens]
+            print('tokens = ', tokens)
+            
             start_point = 0
             samples = []
             while start_point < len(tokens) - n_ctx:
