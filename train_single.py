@@ -156,6 +156,9 @@ def main():
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
             print('>>>', len(samples))
+            
+            assert len(samples) >= batch_size
+            
             for step in range(len(samples) // batch_size):
                 print('>>> Enter step')
                 #  prepare data
