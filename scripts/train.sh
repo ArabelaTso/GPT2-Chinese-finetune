@@ -1,12 +1,13 @@
 python train.py \
-  --model_config config/model_config_small.json \
+  --model_config config/config.json \
   --tokenized_data_path data/tokenized/ \
-  --tokenizer_path cache/vocab_small.txt \
-  --raw_data_path data/train.json \
+  --tokenizer_path cache/vocab.txt \
+  --raw_data_path data/test_1500.json \
   --epochs 30 \
   --log_step 200 \
   --stride 512 \
   --output_dir model/ \
-  --device 0,1,2,3 \
+  --device 0,1,2 \
   --num_pieces 100 \
   --raw
+  --pretrained_model model/pretrain
