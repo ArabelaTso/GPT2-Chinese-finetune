@@ -1,4 +1,5 @@
 import transformers
+from transformers import AutoModel
 import torch
 import os
 import json
@@ -103,7 +104,8 @@ def main():
     if not args.pretrained_model:
         model = transformers.modeling_gpt2.GPT2LMHeadModel(config=model_config)
     else:
-        model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
+        # model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
+        model = AutoModel.from_pretrained("directory")
     model.train()
     model.to(device)
     multi_gpu = False
