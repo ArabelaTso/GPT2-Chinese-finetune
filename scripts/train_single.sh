@@ -1,0 +1,11 @@
+python train_single.py \
+        --device 0,1 \
+        --raw_data_path data/test_1500.json \
+        --raw \
+        --model_config model/final_model/config.json \
+        --pretrained_model model/final_model \
+        --epoch 10 \
+        --batch_size 4 \
+        --stride 768 \
+        --log 100 \
+        --lr 1e-4
