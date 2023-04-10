@@ -142,7 +142,6 @@ def main():
         for i in x:
             with open(tokenized_data_path + 'tokenized_train_{}.txt'.format(i), 'r') as f:
                 line = f.read().strip()
-                print('line')
             tokens = line.split()
             tokens = [int(token) for token in tokens]
             start_point = 0
@@ -153,6 +152,7 @@ def main():
             if start_point < len(tokens):
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
+            print('>>>', len(samples))
             for step in range(len(samples) // batch_size):
                 print('>>> Enter step')
                 #  prepare data
