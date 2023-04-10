@@ -9,5 +9,5 @@ python train.py \
   --output_dir model/ \
   --device 0,1,2 \
   --num_pieces 100 \
-  --raw
+  --raw \
   --pretrained_model model/pretrain
