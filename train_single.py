@@ -127,7 +127,8 @@ def main():
 
     if torch.cuda.device_count() > 1:
         print("Let's use", torch.cuda.device_count(), "GPUs!")
-        model = DataParallel(model)
+        model = DataParallel(model, device_ids=args.device)
+        model.to(device)
         multi_gpu = True
     print('starting training')
     running_loss = 0
