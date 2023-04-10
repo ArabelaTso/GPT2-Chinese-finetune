@@ -156,7 +156,7 @@ def main():
             if start_point < len(tokens):
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
-            assert len(samples) >= batch_size
+            # assert len(samples) >= batch_size
             for step in range(len(samples) // batch_size):
                 # print('>>> Enter step')
                 #  prepare data
@@ -171,9 +171,9 @@ def main():
                 batch_labels = torch.tensor(batch_labels).long().to(device)
                 batch_inputs = torch.tensor(batch_inputs).long().to(device)
 
-                model = model.to(device)
-                batch_inputs = batch_inputs.to(device)
-                batch_labels = batch_labels.to(device)
+                # model = model.to(device)
+                # batch_inputs = batch_inputs.to(device)
+                # batch_labels = batch_labels.to(device)
                 
                 #  forward pass
                 outputs = model.forward(input_ids=batch_inputs, labels=batch_labels)
