@@ -191,6 +191,7 @@ def main():
                     optimizer.step()
                     optimizer.zero_grad()
                     scheduler.step()
+                print(f'\n>>> (step + 1) \% log\_step  = ({step + 1})\% {log_step}')
                 if (step + 1) % log_step == 0:
                     print('now time: {}:{}. Step {} of piece {} of epoch {}, loss {}'.format(
                         datetime.now().hour,
