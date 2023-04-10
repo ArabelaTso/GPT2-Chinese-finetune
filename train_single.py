@@ -153,6 +153,7 @@ def main():
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
             for step in range(len(samples) // batch_size):
+                print('Enter step')
 
                 #  prepare data
                 batch = samples[step * batch_size: (step + 1) * batch_size]
