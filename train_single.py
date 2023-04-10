@@ -1,5 +1,4 @@
 import transformers
-from transformers.models.gpt2 import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
 import torch
 import os
 import json
@@ -105,7 +104,7 @@ def main():
         model = transformers.modeling_gpt2.GPT2LMHeadModel(config=model_config)
     else:
         # model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
-        model = GPT2LMHeadModel.from_pretrained(args.pretrained_model)
+        model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
     model.train()
     model.to(device)
     multi_gpu = False
