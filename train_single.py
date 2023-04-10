@@ -153,8 +153,7 @@ def main():
                 samples.append(tokens[len(tokens)-n_ctx:])
             random.shuffle(samples)
             for step in range(len(samples) // batch_size):
-                print('Enter step')
-
+                print('>>> Enter step')
                 #  prepare data
                 batch = samples[step * batch_size: (step + 1) * batch_size]
                 batch_labels = []
@@ -168,7 +167,7 @@ def main():
                 batch_inputs = torch.tensor(batch_inputs).long().to(device)
 
                 #  forward pass
-                outputs = model.forward(input_ids=batch_inputs, labels=batch_labels)
+                outputs = model.forward(input_ids=batch_inputs, labels=batch_labels).to(device)
                 loss, logits = outputs[:2]
 
                 #  get loss
