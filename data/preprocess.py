@@ -20,6 +20,7 @@ if __name__ == '__main__':
         for line in lines:
             line = line.rstrip()
             line = line.replace('\t', '')
+            line = line.replace('\\', ' ')
             line = line.replace("\"", "")
             line = line + "\\n"
             fw.write(line)
