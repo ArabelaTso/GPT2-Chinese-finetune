@@ -98,7 +98,7 @@ def main():
     else:
         model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
     model.eval()
-    model.to(device)
+    model = model.to(device)
 
     num_parameters = 0
     parameters = model.parameters()
