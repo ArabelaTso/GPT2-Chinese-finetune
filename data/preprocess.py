@@ -22,7 +22,7 @@ if __name__ == '__main__':
             line = line.replace('\t', '')
             line = line.replace('\\', ' ')
             line = line.replace("\"", "")
-            line = line + "\\n"
+            line = line + " "
             fw.write(line)
         fw.write("\"]")
     
