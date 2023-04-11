@@ -7,6 +7,7 @@ if __name__ == '__main__':
     
     print(f'Read {len(lines)} lines.')
     lines = lines[:2]
+    print(lines)
     
     with open(out_file, 'w') as fw:
         fw.write("[\"")
