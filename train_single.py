@@ -108,7 +108,7 @@ def main():
     else:
         model = transformers.modeling_gpt2.GPT2LMHeadModel.from_pretrained(args.pretrained_model)
     model.train()
-    model.to(device)
+    model = model.to(device)
     multi_gpu = False
     full_len = 0
     print('calculating total steps')
