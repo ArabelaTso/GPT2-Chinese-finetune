@@ -10,8 +10,9 @@ if __name__ == '__main__':
     with open(out_file, 'w') as fw:
         fw.write("[\"")
         for line in lines:
+            line = line.rstrip()
             line = line.replace("\"", "")
-            line = line.replace("\n", "\\n")
+            line = line + "\\n"
             fw.write(line)
         fw.write("\"]")
     
