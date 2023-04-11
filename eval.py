@@ -154,7 +154,8 @@ def main():
                 batch_inputs.append(int_ids_for_inputs)
             batch_labels = torch.tensor(batch_labels).long().to(device)
             batch_inputs = torch.tensor(batch_inputs).long().to(device)
-
+            model = model.to(device)
+            
             #  forward pass
             outputs = model.forward(input_ids=batch_inputs, labels=batch_labels).to(device)
             loss, logits = outputs[:2]
