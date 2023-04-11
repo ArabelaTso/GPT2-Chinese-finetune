@@ -4,3 +4,4 @@ python eval.py \
   --tokenizer_path cache/vocab.txt \
   --pretrained_model model/final_model \
   --stride 4 \
+  --raw
