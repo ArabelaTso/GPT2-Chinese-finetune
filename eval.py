@@ -72,7 +72,7 @@ def main():
     full_tokenizer.max_len = n_ctx
     # device = 'cuda' if torch.cuda.is_available() else 'cpu'
     USE_CUDA = torch.cuda.is_available()
-    device = torch.device("cuda:0" if USE_CUDA else "cpu")
+    device = torch.device("cuda:2" if USE_CUDA else "cpu")
     print('using device:', device)
 
     raw_data_path = args.raw_data_path
