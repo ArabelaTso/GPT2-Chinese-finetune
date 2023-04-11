@@ -19,6 +19,7 @@ if __name__ == '__main__':
         fw.write("[\"")
         for line in lines:
             line = line.rstrip()
+            line = line.replace('\t', '')
             line = line.replace("\"", "")
             line = line + "\\n"
             fw.write(line)
