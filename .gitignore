@@ -5,6 +5,7 @@ cache/.DS_Store
 .idea/misc.xml
 .idea/GPT2-Chinese.iml
 data/test_1500.xlsx
+data/train.txt
 .samples.txt
 .idea/modules.xml
 .idea/vcs.xml
