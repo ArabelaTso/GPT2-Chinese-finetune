@@ -18,6 +18,9 @@ if use_cuda:
 else:
     raise NotImplementedError
 
+TRAIN = 'data/train_all.txt'
+TEST = 'data/test_1500.txt'
+VOCAB = 'cache/vocab.txt'
 
 class Vocabulary:
     def __init__(self, file_ls):
@@ -48,7 +51,7 @@ class TextDataset(Dataset):
         sentences = self.text.split('\n')
         sentences = " <EOS> <BOS> ".join(sentences)
         sentences = "<BOS> " + sentences + " <EOS>"
-        with open('toy_data/sentences.txt', 'w', encoding='utf-8') as f:
+        with open(TEST, 'w', encoding='utf-8') as f:
             f.write(sentences)
         self.text_idx = [self.vocab.word2id[w] for w in sentences.split()]
         self.length = self.__len__()
@@ -223,10 +226,10 @@ def gpt_portal():
         'clip': 1.0,
     }
 
-    vocab = Vocabulary(['toy_data/train.txt', 'toy_data/test.txt'])
+    vocab = Vocabulary([TRAIN, TEST])
     print('Vocabulary size: {}'.format(vocab.vocab_size))
     print(vocab.word2id['<BOS>'])
-    train_dataset = TextDataset('toy_data/train.txt', config['seq_length'], vocab)
+    train_dataset = TextDataset(TRAIN, config['seq_length'], vocab)
 
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size'], shuffle=True)
 
@@ -267,9 +270,9 @@ def main_portal():
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    vocab = Vocabulary(['cache/vocab.txt', 'toy_data/test.txt'])
-    train_dataset = TextDataset('data/train_all.txt', seq_length, vocab)
-    test_dataset = TextDataset('data/train_all.txt', seq_length, vocab)
+    vocab = Vocabulary([VOCAB, TEST])
+    train_dataset = TextDataset(TRAIN, seq_length, vocab)
+    test_dataset = TextDataset(TRAIN, seq_length, vocab)
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size)
