@@ -5,7 +5,7 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from transformers import GPT2LMHeadModel, GPT2Config #, get_cosine_schedule_with_warmup
-from transformers.optimization import get_cosine_schedule_with_warmup
+# from transformers.optimization import get_cosine_schedule_with_warmup
 import numpy as np
 import math
 
