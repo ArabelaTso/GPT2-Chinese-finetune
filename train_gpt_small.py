@@ -157,7 +157,8 @@ def train(model, train_loader, criterion, optimizer, num_epochs, device):
                     'Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch + 1, num_epochs, i + 1, len(train_loader),
                                                                        loss.item()))
         print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch + 1, num_epochs, total_loss / len(train_loader)))
-
+    model_to_save = model.module if hasattr(model, 'module') else model
+    model_to_save.save_pretrained('model_try/' + '/final')
 
 def train_gpt(config, model, train_loader, optimizer, scheduler, device):
     model.train()
@@ -180,7 +181,7 @@ def train_gpt(config, model, train_loader, optimizer, scheduler, device):
         print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch + 1, config['num_epochs'], total_loss / len(train_loader)))
     
     model_to_save = model.module if hasattr(model, 'module') else model
-    model_to_save.save_pretrained(output_dir + 'model_epoch{}'.format(epoch + 1))
+    model_to_save.save_pretrained('model_try/' + '/final')
 
 def test(model, test_loader, criterion, vocab, device):
     model.eval()
@@ -265,9 +266,9 @@ def main_portal():
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    vocab = Vocabulary(['toy_data/train.txt', 'toy_data/test.txt'])
-    train_dataset = TextDataset('toy_data/train.txt', seq_length, vocab)
-    test_dataset = TextDataset('toy_data/test.txt', seq_length, vocab)
+    vocab = Vocabulary(['cache/vocab.txt', 'toy_data/test.txt'])
+    train_dataset = TextDataset('data/train_all.txt', seq_length, vocab)
+    test_dataset = TextDataset('data/train_all.txt', seq_length, vocab)
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size)
