@@ -1,10 +1,11 @@
 import argparse
 from collections import defaultdict
+from utils import preprocess
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', default='./test_1500.txt', type=str, required=False, help='Input file path in txt format.')
-    # parser.add_argument('--output', default='./test_1500.json', type=str, required=False,
+    parser.add_argument('--input', default='./data/test_1500.txt', type=str, required=False, help='Input file path in txt format.')
+    # parser.add_argument('--output', default='../data/test_1500.json', type=str, required=False,
                         # help='Output file in json format.')
     
     args = parser.parse_args()
@@ -19,14 +20,13 @@ if __name__ == '__main__':
     sents = defaultdict(int)
     
     for line in lines:
-        line = line.rstrip()
-        line = line.replace('\t', '')
-        line = line.replace('\\', ' ')
-        line = line.replace("\"", "")
+        line = preprocess(line)
+        
         for sent in line.split('。'):
             sents[sent] += 1
     
-    sorted_sents = sorted(sents.items(), key=lambda x:x[1])
+    sorted_sents = sorted(sents.items(), key=lambda x:x[1], reverse=True)
     for st, v in sorted_sents:
-        print(st, v)
+        if v > 10:
+            print(st, v)
     

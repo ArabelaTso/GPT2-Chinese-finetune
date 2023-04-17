@@ -1,9 +1,11 @@
 import argparse
+from utils import preprocess
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', default='./test_1500.txt', type=str, required=False, help='Input file path in txt format.')
-    parser.add_argument('--output', default='./test_1500.json', type=str, required=False,
+    parser.add_argument('--input', default='./data/test_1500.txt', type=str, required=False, help='Input file path in txt format.')
+    parser.add_argument('--output', default='./data/test_1500.json', type=str, required=False,
                         help='Output file in json format.')
     
     args = parser.parse_args()
@@ -18,10 +20,8 @@ if __name__ == '__main__':
     with open(out_file, 'w') as fw:
         fw.write("[\"")
         for line in lines:
-            line = line.rstrip()
-            line = line.replace('\t', '')
-            line = line.replace('\\', ' ')
-            line = line.replace("\"", "")
+            line = preprocess(line)
+            
             line = line + " "
             fw.write(line)
         fw.write("\"]")
