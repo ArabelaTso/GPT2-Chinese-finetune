@@ -21,6 +21,8 @@ if __name__ == '__main__':
     
     for line in lines:
         line = preprocess(line)
+        if len(line) == 0:
+                continue
         
         for sent in line.split('。'):
             sents[sent] += 1
