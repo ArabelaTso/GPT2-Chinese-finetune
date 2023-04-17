@@ -27,6 +27,6 @@ if __name__ == '__main__':
             sents[sent] += 1
     
     sorted_sents = sorted(sents.items(), key=lambda x:x[1])
-    for st, v in sorted_sents.items():
+    for st, v in sorted_sents:
         print(st, v)
     
