@@ -25,7 +25,8 @@ if __name__ == '__main__':
                 continue
         
         for sent in line.split('。'):
-            sents[sent] += 1
+            if len(sent):
+                sents[sent] += 1
     
     sorted_sents = sorted(sents.items(), key=lambda x:x[1], reverse=True)
     for st, v in sorted_sents:
