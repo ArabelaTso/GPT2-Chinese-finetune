@@ -21,6 +21,8 @@ if __name__ == '__main__':
         fw.write("[\"")
         for line in lines:
             line = preprocess(line)
+            if len(line) == 0:
+                continue
             
             line = line + " "
             fw.write(line)

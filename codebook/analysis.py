@@ -30,6 +30,8 @@ if __name__ == '__main__':
     
     sorted_sents = sorted(sents.items(), key=lambda x:x[1], reverse=True)
     for st, v in sorted_sents:
-        if v > 10:
+        # if "4" == st:
+            # print(str(st))
+        if v > 5:
             print(st, v)
     
