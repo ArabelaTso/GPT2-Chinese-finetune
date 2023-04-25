@@ -1,6 +1,7 @@
 import re
 import sys
 import time
+import curses
 from difflib import get_close_matches
 
 def read_strings(file='./data/stats/stats_all.txt'):
@@ -25,23 +26,42 @@ def postprocess(st):
     return re.sub(r'【\d】', '【 】', st)
 
 
+def report_progress(stdscr, st, progress):
+    """progress: 0-10"""
+    stdscr.addstr(progress, 0, "{0}".format(st))
+    # stdscr.addstr(1, 0, "Total progress: [{1:10}] {0}%".format(progress * 10, "#" * progress))
+    stdscr.refresh()
+
 def main():
     strings = read_strings()
+    
+    # stdscr = curses.initscr()
+    # curses.noecho()
+    # curses.cbreak()
+    
+    # try:
+    #     prefix = input("Input:")
+    #     candidates = find_strings_with_prefix(prefix, strings)
+    #     for i, st in enumerate(candidates):
+    #         report_progress(stdscr, st, i)
+    #         time.sleep(0.5)
+    # finally:
+    #     curses.echo()
+    #     curses.nocbreak()
+    #     curses.endwin()
+    
     while True:
         prefix = input("Input:")
         candidates = find_strings_with_prefix(prefix, strings)
         # candidates = candidates[:min(1, len(candidates))]
         # candidates = find_bestmatch(prefix, strings)
         
-        # print('\n'.join(candidates))
-        # print()
-        for st in candidates:
-            print('\r{}>'.format(st), end='')
-            time.sleep(0.5)
+        print('\n'.join(candidates))
+        print()
+        # for st in candidates:
+        #     print('\r{}\n'.format(st), end='\n')
+        #     time.sleep(0.5)
         
 
 if __name__ == '__main__':
     main()
-    
-
-    
