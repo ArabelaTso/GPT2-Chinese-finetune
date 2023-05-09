@@ -32,16 +32,19 @@ if __name__ == '__main__':
             if len(sent):
                 sent_count_dict[sent] += 1
                 sent_all.append(sent)
+                for phrase in sent.split('，'):
+                    sent_all.append(phrase)
+                    
     
     # Output statistics, a sentence followed by its counts
     # Sort dictionary by descending counts
-    sorted_sent_count_dict = sorted(sent_count_dict.items(), key=lambda x:x[1], reverse=True)
-    for st, v in sorted_sent_count_dict:
-        if len(st) <= 1:
-            continue
-        if v > 5:
-            print(st)
-            # print(st, v)
+    # sorted_sent_count_dict = sorted(sent_count_dict.items(), key=lambda x:x[1], reverse=True)
+    # for st, v in sorted_sent_count_dict:
+    #     if len(st) <= 1:
+    #         continue
+    #     if v > 5:
+    #         print(st)
+    #         # print(st, v)
     
     # Output all sentence, without removing the duplication
     for sent in sent_all:
