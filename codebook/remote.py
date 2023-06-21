@@ -26,8 +26,9 @@ def process_input():
     return render_template('index.html', input=input_text, output=output_text)
 
 if __name__ == '__main__':
+    app.run(host='localhost', port=8090)
+    
     # app.run(host='localhost', port=9999)
-    app.run(host='10.79.219.111', port=5000)
-    # app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
+    # app.run(host='10.79.219.111', port=5000)
     # app.run()
     
