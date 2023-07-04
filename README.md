@@ -1,3 +1,10 @@
+# Usage
+
+- Launch app in port
+flask run --host=0.0.0.0 --port=8090
+- Make it public
+socketxp connect http://localhost:8090
+
 # GPT2-Chinese
 
 ## Description
