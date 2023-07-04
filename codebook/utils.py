@@ -21,4 +21,7 @@ def preprocess(line):
     line = line.replace('*', '')
     line = line.replace('“', '')
     line = line.replace('”', '')
+    
+    line = re.sub(r'（.*?）', '', line)
+    
     return line
