@@ -37,7 +37,7 @@ class PrefixTrie:
         return results
     
 def read_all():
-    lines = open('../data/clean/train_all.txt', 'r').readlines()
+    lines = open('../data/clean/train_all_new.txt', 'r').readlines()
     lines = [x.strip('\n') for x in lines]
     return lines
 
@@ -62,21 +62,21 @@ def setup():
         trie.insert(word)
     return trie
 
-# if __name__ == '__main__':
-#     trie = setup()
+if __name__ == '__main__':
+    trie = setup()
 
-#     # for loop input
-#     while True:
-#         prefix = input("Input:")
-#         results = trie.search(prefix)
-#         if len(results) == 0:
-#             print('Not found.\n')
-#         else:
-#             print("Results:{}".format(results[0][0]))
-#             print()
+    # for loop input
+    while True:
+        prefix = input("Input:")
+        results = trie.search(prefix)
+        if len(results) == 0:
+            print('Not found.\n')
+        else:
+            print("Results:{}".format(results[0][0]))
+            print()
             
-#             # for res in results[0]:
-#                 # print(res)
+            # for res in results[0]:
+                # print(res)
     
     # for once
     # prefix = "光"
