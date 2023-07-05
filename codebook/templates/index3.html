@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input and Output Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">病历文本联想生成</h1>
+                <form method="post" action="/">
+                    <div class="form-group">
+                        <label for="input">Enter the prefix:</label>
+                        <!-- <input type="text" class="form-control" name="input" id="input"> -->
+                        <input type="text" class="form-control" name="input" id="input" {% if output_list %}value="{{ output_list|first }}"{% endif %}>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                {% if output_list %}
+                <div class="mt-4">
+                    <p>输入: <strong>{{ input }}</strong></p>
+                    <p>自动补全: <strong>{{ output_list[0] }}</strong></p> 
+                    <p>联想: </p>
+                    <ul>
+                        {% for string in output_list[1:] %}
+                          <li>{{ string }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
