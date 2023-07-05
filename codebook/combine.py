@@ -13,14 +13,6 @@ class Trie:
     def __init__(self):
         self.root = TrieNode()
 
-    @staticmethod
-    def load(file_path):
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-        trie = Trie()
-        trie.root = trie._deserialize(data)
-        return trie
-
     def save(self, file_path):
         data = self._serialize(self.root)
         with open(file_path, 'w') as f:
@@ -73,6 +65,14 @@ class PrefixTrie(Trie):
             results.extend(self._dfs(child, prefix + char))
         return results
     
+    @staticmethod
+    def load(file_path):
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        trie = PrefixTrie()
+        trie.root = trie._deserialize(data)
+        return trie
+    
     
 class ContainTrie(Trie):
     def __init__(self):
@@ -87,6 +87,14 @@ class ContainTrie(Trie):
         node.is_end_word = True
         node.count += 1
 
+    @staticmethod
+    def load(file_path):
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        trie = ContainTrie()
+        trie.root = trie._deserialize(data)
+        return trie
+    
     def search(self, word):
         node = self.root
         for char in word:
@@ -134,13 +142,17 @@ def sort_list_by_second_element(lst):
     """
     return sorted(lst, key=lambda x: x[1], reverse=True)
 
-def setup_models(pre_pt_filename='contain.json', cont_pt_filename='prefix.json'):
-    print('Loading models...')
+def setup_models(pre_pt_filename='prefix.json', cont_pt_filename='contain.json'):
     if os.path.exists(pre_pt_filename) and os.path.exists(cont_pt_filename):
+        print('Loading models...')
+        prefix_model = PrefixTrie()
         prefix_model = PrefixTrie.load(pre_pt_filename)
+        
+        contain_model = ContainTrie()
         contain_model = ContainTrie.load(cont_pt_filename)
         
     else:
+        print('Preparing models...')
         lines = read_all()
     
         if not os.path.exists(pre_pt_filename):
@@ -169,17 +181,60 @@ def setup_contain(lines):
         trie.insert(word)
     return trie
 
+def get_replies_from_two_models(prefix_model, contain_model, prompt:str):
+    results = []
+    prompt = prompt.strip()
+    complete = prefix_model.search(prompt)
+    if len(complete) == 0:
+        results.append('Cannot complete the sentence.')
+    else:
+        results.append(complete[0][0])
+    
+    imagines = []
+    imagines.extend(contain_model.get_strings_with_word(word=prompt))
+    if len(imagines) == 0:
+        results.append('Cannot match any sentences.')
+    else:
+        for x in imagines[:min(len(imagines), 5)]:
+            results.append(x[0])
+    
+    return results
+    
+    # try:
+    #     results = []
+    #     prompt = prompt.strip()
+    #     complete = prefix_model.search(prompt)
+    #     if len(complete) == 0:
+    #         results.append('Cannot complete the sentence.')
+    #     else:
+    #         results.append(complete[0][0])
+        
+    #     imagines = []
+    #     imagines.extend(contain_model.get_strings_with_word(word=prompt))
+    #     if len(imagines) == 0:
+    #         results.append('Cannot match any sentences.')
+    #     else:
+    #         for x in imagines[:5]:
+    #             results.append(x[0])
+        
+    #     return results
+    # except Exception as e:
+    #     print(e)
+    #     return ['404', '404']
+
 
 if __name__ == '__main__':
-    pre_pt_filename = './models/contain.json'
-    cont_pt_filename = './models/prefix.json'
+    pre_pt_filename = './models/prefix.json'
+    cont_pt_filename = './models/contain.json'
     
     prefix_model, contain_model = setup_models(pre_pt_filename, cont_pt_filename)
-    
     
     # for loop input
     while True:
         input_str = input("Input:")
+        
+        # results = get_replies_from_two_models(prefix_model, contain_model, input_str)
+        # print(results)
         
         # Completion
         results = prefix_model.search(input_str)
@@ -196,7 +251,7 @@ if __name__ == '__main__':
         if len(results) == 0:
             print('Cannot match any sentences.\n')
         else:
-            print("Imaginations: \n- {}".format('\n- '.join([x[0] for x in results[:5]])))
+            print("Imaginations: \n- {}".format('\n- '.join([x[0] for x in results[:min(len(results), 5)]])))
             print()
             
         
