@@ -10,3 +10,4 @@ data/xlsx/
 .idea/vcs.xml
 .idea
 checkpoints/
+*.json
