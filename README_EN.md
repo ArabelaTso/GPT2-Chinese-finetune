@@ -1,3 +1,5 @@
+conda activate flaskProject
+
 # GPT2-Chinese
 
 ## Description
