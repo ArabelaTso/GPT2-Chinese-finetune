@@ -182,45 +182,27 @@ def setup_contain(lines):
     return trie
 
 def get_replies_from_two_models(prefix_model, contain_model, prompt:str):
-    results = []
-    prompt = prompt.strip()
-    complete = prefix_model.search(prompt)
-    if len(complete) == 0:
-        results.append('Cannot complete the sentence.')
-    else:
-        results.append(complete[0][0])
-    
-    imagines = []
-    imagines.extend(contain_model.get_strings_with_word(word=prompt))
-    if len(imagines) == 0:
-        results.append('Cannot match any sentences.')
-    else:
-        for x in imagines[:min(len(imagines), 5)]:
-            results.append(x[0])
-    
-    return results
-    
-    # try:
-    #     results = []
-    #     prompt = prompt.strip()
-    #     complete = prefix_model.search(prompt)
-    #     if len(complete) == 0:
-    #         results.append('Cannot complete the sentence.')
-    #     else:
-    #         results.append(complete[0][0])
+    try:
+        results = []
+        prompt = prompt.strip()
+        complete = prefix_model.search(prompt)
+        if len(complete) == 0:
+            results.append('Cannot complete the sentence.')
+        else:
+            results.append(complete[0][0])
         
-    #     imagines = []
-    #     imagines.extend(contain_model.get_strings_with_word(word=prompt))
-    #     if len(imagines) == 0:
-    #         results.append('Cannot match any sentences.')
-    #     else:
-    #         for x in imagines[:5]:
-    #             results.append(x[0])
+        imagines = []
+        imagines.extend(contain_model.get_strings_with_word(word=prompt))
+        if len(imagines) == 0:
+            results.append('Cannot match any sentences.')
+        else:
+            for x in imagines[:min(len(imagines), 5)]:
+                results.append(x[0])
         
-    #     return results
-    # except Exception as e:
-    #     print(e)
-    #     return ['404', '404']
+        return results
+    except Exception as e:
+        print(e)
+        return ['404', '404']
 
 
 if __name__ == '__main__':
