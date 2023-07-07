@@ -219,22 +219,28 @@ if __name__ == '__main__':
         # print(results)
         
         # Completion
-        results = prefix_model.search(input_str)
-        if len(results) == 0:
-            print('Cannot complete the sentence.\n')
+        complete_results = prefix_model.search(input_str)
+        if len(complete_results) == 0:
+            complete_results = 'Cannot complete the sentence.'
+            # print('Cannot complete the sentence.\n')
         else:
-            print("Complete: {}".format(results[0][0]))
-            print()
+            complete_results = complete_results[0][0]
+            # print("Complete: {}".format(complete_results))
+            # print()
         
         # Contain
-        results = []
-        results.extend(contain_model.get_strings_with_word(word=input_str))
+        contain_results = []
+        contain_results.extend(contain_model.get_strings_with_word(word=input_str))
         
-        if len(results) == 0:
-            print('Cannot match any sentences.\n')
+        if len(contain_results) == 0:
+            contain_results = [('Cannot match any sentences.', 0)]
+            # print('Cannot match any sentences.\n')
         else:
-            print("Imaginations: \n- {}".format('\n- '.join([x[0] for x in results[:min(len(results), 5)]])))
-            print()
+            contain_results = contain_results[:min(len(contain_results), 5)]
+            # print("Imaginations: \n- {}".format('\n- '.join([x[0] for x in contain_results[:min(len(contain_results), 5)]])))
+            # print()
             
+        
+        print("补全：{}\n联想：\n- {}\n\n".format(complete_results, '\n- '.join([x[0] for x in contain_results])))
         
 
