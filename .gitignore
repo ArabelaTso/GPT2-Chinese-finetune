@@ -11,3 +11,4 @@ data/xlsx/
 .idea
 checkpoints/
 *.json
+*.zip
